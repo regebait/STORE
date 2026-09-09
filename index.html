@@ -307,7 +307,36 @@ document.querySelectorAll(".package").forEach(function(button) {
   });
 });
 
-document.getElementById("year").textContent = new Date().getFullYear();
+function updateDateTime() {
+  const now = new Date();
+
+  const dateText = new Intl.DateTimeFormat("id-ID", {
+    timeZone: "Asia/Jakarta",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  }).format(now);
+
+  const timeText = new Intl.DateTimeFormat("id-ID", {
+    timeZone: "Asia/Jakarta",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(now);
+
+  document.getElementById("year").textContent = now.toLocaleString("id-ID", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric"
+  });
+
+  document.getElementById("liveDateTime").textContent =
+    dateText + " • " + timeText + " WIB";
+}
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
 </script>
 
 </body>
